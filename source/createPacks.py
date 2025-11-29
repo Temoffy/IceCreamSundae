@@ -34,6 +34,11 @@ def WriteConfig(twoDDict, path):
         temp.write(configfile)
     
 def InitialDirSetup():
+
+    for folder in base["paths"]:
+        if not os.path.isdir(folder):
+            os.makedirs(folder)
+
     path = base['paths']['packs']
     for platform in base['platforms']:
         if base['platforms'][platform]:
