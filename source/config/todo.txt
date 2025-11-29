@@ -1,0 +1,4 @@
+copy over config folders
+hook up custom config (ovrride folder and concat options.txt)
+increment versions
+compile lists of external files for cf/mr creditting and liscence verification.

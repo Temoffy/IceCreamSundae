@@ -1,0 +1,236 @@
+#core visual mods
+- mod: Faithful 32x
+  mr: faithful-32x
+    #- mod: unique powder
+    #- mod: visible age
+    #- mod: Blue Enchanting
+- mod: 32x Eating Animation
+  mr: 32x-eating-animation
+- mod: Faithful 32x AppleSkin Addon
+  mr: faithful-32x-appleskin-addon
+- mod: Bushy Leaves for Faithful 32x
+  mr: bushy-leaves-for-faithful-32x
+
+- mod: makeup ultra fast shaders #Complementary Reimagined
+  mr: makeup-ultra-fast-shaders #complementary-reimagined
+
+- mod: Distant Horizons
+  mr: distanthorizons
+
+- mod: Xaeros World Map
+  mr: xaeros-world-map
+  dependant:
+    - mod: Xaeros Minimap
+      mr: xaeros-minimap
+
+#server-dependant mods
+- mod: Elytra Trims
+  mr: elytra-trims
+
+- mod: Armored Elytra
+  mr: elytra-armor
+  fallback:
+    - mod: Metal Wings
+      mr: metalwings
+
+- mod: Simple Voice Chat
+  mr: simple-voice-chat
+  dependant:
+    - mod: Talking Heads
+      mr: talkingheads
+    - mod: Voice Chat Soundboard
+      mr: voicechat-soundboard
+
+#visual util
+- mod: AppleSkin
+  mr: appleskin
+
+- mod: ClearDespawn
+  mr: cleardespawn
+  fallback:
+  - mod: ClearDespawn Reworked
+    mr: clear-despawn-reworked
+
+- mod: Lighty
+  mr: lighty
+
+- mod: Shulker Box Tooltip
+  mr: shulkerboxtooltip
+
+- mod: Name Pain
+  mr: namepain
+
+- mod: Pet Owner
+  mr: petowner
+
+- mod: Map Tooltip
+  mr: map-tooltip
+  fallback:
+    - mod: Map In Slot
+      mr: map-in-slot
+
+#- mod: Cull Less Leaves
+#  mr: cull-less-leaves
+
+- mod: Dynamic FPS
+  mr: dynamic-fps
+
+- mod: Status Effect Timer
+  mr: statuseffecttimer
+
+- mod: clean f3
+  mr: clean-f3
+
+#visual fancy
+- mod: ItemPhysic Lite
+  mr: itemphysic-lite
+
+- mod: Continuity
+  mr: continuity
+
+- mod: Not Enough Animations
+  mr: not-enough-animations
+
+- mod: Ambient Environment
+  mr: ambient-environment
+
+- mod: Handful
+  mr: handful
+
+- mod: Seamless Loading Screen
+  mr: seamless-loading-screen
+
+- mod: Better Third Person
+  mr: better-third-person
+
+#- mod: Sneaky Capes
+#  mr: sneaky_capes
+
+- mod: Elytra Physics
+  mr: elytra-physics
+
+- mod: Dense Flowers
+  mr: dense-flowers
+
+- mod: I See My Armored Hand
+  mr: ismah
+
+- mod: Smooth Swapping
+  mr: smooth-swapping
+
+- mod: Eating Animation
+  mr: eating-animation
+
+#- mod: Effective
+#  mr: effective
+
+
+#audio
+- mod: Sound Physics Perfected
+  mr: sound-physics-perfected
+  fallback:
+    - mod: Sound Physics Remastered
+      mr: sound-physics-remastered
+
+- mod: AmbientSounds
+  mr: ambientsounds
+
+- mod: Presence Footsteps
+  mr: presence-footsteps
+
+- mod: Sounds
+  mr: sound
+
+- mod: Cool Rain
+  mr: coolrain
+
+- mod: Omega Mute
+  mr: omega-mute
+
+
+#util
+#- mod: AFKPeace
+
+- mod: Screenshot to Clipboard
+  mr: screenshot-to-clipboard
+  fallback:
+    - mod: Screencopy
+      mr: screencopy
+
+- mod: Screenshot Compression
+  mr: screenshot-compression
+
+- mod: Screenshot Organization 
+  mr: screenshot-organisation
+
+- mod: Antighost
+  mr: antighost
+  fallback:
+    - mod: Antighost-2
+      mr: antighost-2
+
+- mod: LibrGetter
+  mr: libr-getter
+  fallback:
+    - mod: Librarian Trade Finder
+      mr: librarian-trade-finder
+
+- mod: litematica
+  mr: litematica
+
+- mod: Anti Item Break
+  mr: anti-item-break
+
+- mod: Windows Keyboard Fixes - Fixes sticky keys
+  mr: windows-keyboard-fixes-fixes-sticky-keys
+
+- mod: Remember My Txt
+  mr: remember-my-txt
+
+- mod: Continue Button
+  mr: continue-button
+
+#action util
+- mod: Accurate Block Placement
+  mr: accurate-block-placement-reborn
+
+- mod: Clickthrough
+  mr: clickthrough
+  fallback:
+    - mod: Clickthrough Plus
+      mr: clickthrough+
+
+- mod: Mouse Tweaks
+  mr: mouse-tweaks
+
+- mod: Client Sort
+  mr: clientsort
+
+- mod: Shuffle
+  mr: shuffle
+
+- mod: Sneaky Screens
+  mr: sneaky-screens
+
+- mod: ClientHarvest
+  mr: clientharvest
+
+- mod: No Strip
+  mr: no-strip
+
+- mod: EasierVillagerTrading
+  mr: easiervillagertrading
+  fallback:
+    - mod: villager trading Plus
+      mr: trading+
+
+#chat
+- mod: Emoji Type
+  mr: emoji-type
+
+- mod: Chat Heads
+  mr: chat-heads
+
+- mod: Talk Balloons
+  mr: talk-balloons
+

@@ -1,1 +1,0 @@
-See the latest Packwiz folder for config settings.

@@ -1,5 +1,5 @@
 name: Mod removal
-description: Suggest a mod to be removed from Fabulously Optimized
+description: Suggest a mod to be removed
 labels: mod, remove
 body:
 - type: markdown
@@ -15,7 +15,7 @@ body:
     description: Write the GitHub link or issue ID where the mod was initially proposed for addition.
     placeholder: "#1234"
   validations:
-    required: true
+    required: false
 
 - type: textarea
   attributes:

@@ -1,0 +1,13 @@
+name = "[32x] Eating animation"
+filename = "eatinganimation-32x.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/PeAY2PBb/versions/dUfElWNn/eatinganimation-32x.zip"
+hash-format = "sha512"
+hash = "15c70a2281f2f0ca2eb1f35f5f0b965fd43f062d73bf5c42ea6f0a3ba9301884fa6b5f9f9744269bcbd4c0ba3ffcb41da9555b6858834da7384c9e1433389f70"
+
+[update]
+[update.modrinth]
+mod-id = "PeAY2PBb"
+version = "dUfElWNn"

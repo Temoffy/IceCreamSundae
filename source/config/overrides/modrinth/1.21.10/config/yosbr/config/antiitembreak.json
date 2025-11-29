@@ -1,0 +1,33 @@
+{
+	"enableMod": true,
+	"minimumDurability": 8,
+	"itemOverrides": {
+		"item.minecraft.wooden_sword": "ENCHANTED_ONLY",
+		"item.minecraft.wooden_shovel": "ENCHANTED_ONLY",
+		"item.minecraft.wooden_pickaxe": "ENCHANTED_ONLY",
+		"item.minecraft.wooden_axe": "ENCHANTED_ONLY",
+		"item.minecraft.wooden_hoe": "ENCHANTED_ONLY",
+		"item.minecraft.copper_sword": "ENCHANTED_ONLY",
+		"item.minecraft.copper_shovel": "ENCHANTED_ONLY",
+		"item.minecraft.copper_pickaxe": "ENCHANTED_ONLY",
+		"item.minecraft.copper_axe": "ENCHANTED_ONLY",
+		"item.minecraft.copper_hoe": "ENCHANTED_ONLY",
+		"item.minecraft.stone_sword": "ENCHANTED_ONLY",
+		"item.minecraft.stone_shovel": "ENCHANTED_ONLY",
+		"item.minecraft.stone_pickaxe": "ENCHANTED_ONLY",
+		"item.minecraft.stone_axe": "ENCHANTED_ONLY",
+		"item.minecraft.stone_hoe": "ENCHANTED_ONLY",
+		"item.minecraft.golden_sword": "ENCHANTED_ONLY",
+		"item.minecraft.golden_shovel": "ENCHANTED_ONLY",
+		"item.minecraft.golden_pickaxe": "ENCHANTED_ONLY",
+		"item.minecraft.golden_axe": "ENCHANTED_ONLY",
+		"item.minecraft.golden_hoe": "ENCHANTED_ONLY",
+		"item.minecraft.carrot_on_a_stick": "NEVER",
+		"item.minecraft.warped_fungus_on_a_stick": "NEVER",
+		"item.minecraft.flint_and_steel": "ENCHANTED_ONLY",
+		"item.minecraft.bow": "ENCHANTED_ONLY",
+		"item.minecraft.fishing_rod": "ENCHANTED_ONLY",
+		"item.minecraft.shears": "ENCHANTED_ONLY",
+		"item.minecraft.crossbow": "ENCHANTED_ONLY"
+	}
+}

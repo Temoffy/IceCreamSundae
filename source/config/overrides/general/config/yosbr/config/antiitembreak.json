@@ -1,0 +1,28 @@
+{
+  "enable_mod": true,
+  "min_durability": "8",
+  "items": {
+    "item.minecraft.wooden_axe": 0,
+    "item.minecraft.wooden_hoe": 0,
+    "item.minecraft.wooden_pickaxe": 0,
+    "item.minecraft.wooden_shovel": 0,
+    "item.minecraft.wooden_sword": 0,
+    "item.minecraft.stone_axe": 0,
+    "item.minecraft.stone_hoe": 0,
+    "item.minecraft.stone_pickaxe": 0,
+    "item.minecraft.stone_shovel": 0,
+    "item.minecraft.stone_sword": 0,
+    "item.minecraft.iron_axe": 0,
+    "item.minecraft.iron_hoe": 0,
+    "item.minecraft.iron_pickaxe": 0,
+    "item.minecraft.iron_shovel": 0,
+    "item.minecraft.iron_sword": 0,
+    "item.minecraft.carrot_on_a_stick": 1,
+    "item.minecraft.warped_fungus_on_a_stick": 1,
+    "item.minecraft.flint_and_steel": 1,
+    "item.minecraft.bow": 0,
+    "item.minecraft.shears": 0,
+    "item.minecraft.fishing_rod": 0,
+    "item.minecraft.shield": 0
+  }
+}

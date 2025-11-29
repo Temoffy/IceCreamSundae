@@ -1,0 +1,43 @@
+- mod: Faithful 32x
+  mr: faithful-32x
+    #- mod: unique powder
+    #- mod: visible age
+    #- mod: Blue Enchanting
+- mod: 32x Eating Animation
+  mr: 32x-eating-animation
+- mod: Faithful 32x AppleSkin Addon
+  mr: faithful-32x-appleskin-addon
+- mod: Bushy Leaves for Faithful 32x
+  mr: bushy-leaves-for-faithful-32x
+
+- mod: makeup ultra fast shaders
+  mr: makeup-ultra-fast-shaders
+
+- mod: Continuity
+  mr: continuity
+
+- mod: Not Enough Animations
+  mr: not-enough-animations
+
+- mod: Elytra Physics
+  mr: elytra-physics
+
+- mod: I See My Armored Hand
+  mr: ismah
+
+- mod: Eating Animation
+  mr: eating-animation
+
+- mod: Effective
+  mr: effective
+
+- mod: Presence Footsteps
+  mr: presence-footsteps
+
+- mod: entity-model-features
+
+- mod: entitytexturefeatures
+
+- mod: iris
+
+- mod: optiboxes

@@ -1,0 +1,22 @@
+fov:1.0
+maxFps:60
+renderDistance:8
+narratorHotkey:false
+resourcePacks:["vanilla","fabric","continuity:glass_pane_culling_fix","continuity:default","file/SodiumTranslations.zip","file/Chat Reporting Helper.zip","minecraft:supporteatinganimation","file/Faithful 32x - java-snapshot Experimental.zip","file/Faithful 32x - 1.21.7.zip","file/Bushy Leaves For Faithful 32x V1.4.zip","file/eatinganimation-32x.zip","file/Fast Better Grass.zip"]
+incompatibleResourcePacks:["appleskin","distanthorizons","elytratrims","entity_model_features","entity_texture_features","modernfix","xaerominimap","xaeroworldmap","yet_another_config_lib_v3","file/Faithful 32x - 1.21.7.zip","file/Bushy Leaves For Faithful 32x V1.4.zip","file/eatinganimation-32x.zip"]
+key_key.saveToolbarActivator:key.keyboard.unknown
+key_net.clayborn.accurateblockplacement.togglevanillaplacement:key.keyboard.g
+key_key.antighost.reveal:key.keyboard.unknown
+key_key.presencefootsteps.settings:key.keyboard.unknown
+key_seamless_loading_screen.keybind.config:key.keyboard.unknown
+key_talkingheads.keybinding.modToggle:key.keyboard.unknown
+key_key.mute_microphone:key.keyboard.unknown
+key_key.hide_icons:key.keyboard.unknown
+key_key.voice_chat_group:key.keyboard.unknown
+key_gui.xaero_minimap_settings:key.keyboard.unknown
+key_gui.xaero_waypoints_key:key.keyboard.h
+key_gui.xaero_enlarge_map:key.keyboard.unknown
+key_gui.xaero_open_settings:key.keyboard.unknown
+key_gui.xaero_open_map:key.keyboard.comma
+soundCategory_music:0.70
+soundCategory_player:0.80
