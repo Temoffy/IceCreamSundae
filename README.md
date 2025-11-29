@@ -12,7 +12,7 @@ A richer, smoother vanilla client. Visuals, tools, and tweaks that enhance witho
 
 [Modrinth][url-modrinth]
 
-> By downloading Ice Cream Sundae or Ice Cream Mondae, you have acknowledged the [disclaimers][url-terms].
+> By downloading Ice Cream Sundae or Ice Cream Mondae, you have acknowledged our parent pack's [disclaimers][url-terms].
 
 ## Credits
 
