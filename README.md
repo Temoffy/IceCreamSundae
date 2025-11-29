@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://cdn.modrinth.com/data/9jIRcx30/967a9cbd7f6d05264b3bcf9616fff0cc92f13678_96.webp" alt="ICS logo" width="10%" height="10%">
+<img src="https://github.com/user-attachments/assets/e6852def-37c4-45f6-a159-02f02f5fee03" alt="ICS logo" width="10%" height="10%" />
 
 # IceCreamSundae
 
