@@ -78,7 +78,7 @@ def MakePack(MCversion, path):
                            "--"+opt["loader"]+"-latest", #loader version selection
                            "--mc-version", MCversion,
                            "--modloader",opt["loader"],
-                           "--name", opt["name"],
+                           "--name", opt["name"]+" "+MCversion,
                            "--version", modpackVersions["versions"][MCversion]
                            ], cwd=path, shell=True, capture_output=False)
 
@@ -307,7 +307,7 @@ def UpdatePackData():
             with open(path+'\\pack.toml', 'r') as file:
                 packData = file.read()
             packData = re.sub(r'author = "[^"]+"','author = "'+base['general']['author']+'"', packData)
-            packData = re.sub(r'name = "[^"]+"','name = "'+base['general']['name']+'"', packData)
+            packData = re.sub(r'name = "[^"]+"','name = "'+base['general']['name']+" "+MCversion+'"', packData)
             packData = re.sub(r'version = "[^"]+"','version = "'+modpackVersions['versions'][MCversion]+'"', packData)
             with open(path+'\\pack.toml', 'w') as file:
                 file.write(packData)

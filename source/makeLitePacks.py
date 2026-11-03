@@ -28,7 +28,7 @@ def UpdatePackData():
             with open(path+'\\pack.toml', 'r') as file:
                 packData = file.read()
             packData = re.sub(r'author = "[^"]+"','author = "'+base['general']['author']+'"', packData)
-            packData = re.sub(r'name = "[^"]+"','name = "'+base['general']['litename']+'"', packData)
+            packData = re.sub(r'name = "[^"]+"','name = "'+base['general']['litename']+" "+MCversion+'"', packData)
             packData = re.sub(r'version = "[^"]+"','version = "'+modpackVersions['versions'][MCversion]+'"', packData)
             with open(path+'\\pack.toml', 'w') as file:
                 file.write(packData)
