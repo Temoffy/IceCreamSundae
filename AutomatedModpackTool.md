@@ -1,6 +1,6 @@
-# Modpack Automation: Handover Plan (v2)
+# Modpack Automation: the mrpack_vonneumannifier (mrvn)
 
-Prepared 2026-10-18 for Telos. No code exists. Don't start building until Telos says so.
+Don't start building until Telos says so.
 
 ## 1. Purpose
 
@@ -22,7 +22,7 @@ Each term has one meaning in this document.
 - **Edition**: full or lite.
 - **Build**: one .mrpack file for one edition and one Minecraft version.
 - **Parent**: the Fabulously Optimized pack.
-- **Lock**: the file that lists the exact mod files for one Minecraft version.
+- **Lock**: the file that lists the exact mod files of the last build queued or uploaded for one edition and one Minecraft version. Only the queue stage writes it.
 - **Upload**: a pack version sent to Modrinth, as a draft or published.
 - **Completeness**: the percent of wanted mods that have a build for a Minecraft version (Section 7).
 
@@ -33,6 +33,7 @@ Each term has one meaning in this document.
 3. Question anything unclear or doubtful before building. Telos prefers a question now over wasted work.
 4. Design for unattended runs: fail loudly, need no memory from Telos, keep all state in the repo. Do the least that meets the plan, like a lazy senior dev: no extra modules, options, or abstractions, and ask before adding any.
 5. Never ask for secrets. Never commit them. The tool's name isn't final (first idea: mrpackVonNeumannifier): use packtool as a placeholder, and spell it only in names that one find-and-replace can change.
+6. write minimally, simply, and maintainably.
 
 ## 4. Decisions
 
@@ -81,7 +82,7 @@ Each term has one meaning in this document.
 Four kinds of data, each in its own place:
 
 1. **Manifest** (`manifest/`): what Telos wants. Telos edits it.
-2. **Lock** (`lock/`): what the tool resolved. Generated. Never edited by hand.
+2. **Lock** (`lock/`): what the tool last queued or uploaded. Generated. Never edited by hand.
 3. **State** (`state/`): what the tool remembers. Only the tool writes it. Committed.
 4. **Source** (`source/`): where the code lives, where most of your work will be done.
 
@@ -89,10 +90,10 @@ Stages. Each reads files and writes files, so any stage can rerun alone:
 
 1. **discover**: read Mojang's version manifest. Or just parent's versions. Add new releases as candidates. Move a candidate to active when the parent has a published version for it and completeness reaches what's needed for alpha.
 2. **parent**: read the parent's published versions. Accept silently or open a PR (Section 9).
-3. **resolve**: read the manifest, parent, and Modrinth. Write `lock/<mc>.json`. Compare to the previous lock. If nothing changed, stop for this Minecraft version. Ensure no duplicate builds.
+3. **resolve**: read the manifest, parent, and Modrinth. Write the full result and the derived lite result to build/. Compare each to its lock. If an edition is unchanged, stop for that edition.
 4. **build**: apply configs, write both editions, validate each .mrpack.
 5. **test**: static checks, server boot, client boot (Section 10).
-6. **queue**: store the unique tested build as ready.
+6. **queue**: when a build passes all test tiers, write its queue.json entry, then its lock. The lock is never written earlier.
 7. **publish**: a separate daily step.
 
 A failure in one Minecraft version doesn't stop the others.
@@ -109,7 +110,7 @@ A failure in one Minecraft version doesn't stop the others.
 
 ### Lite edition
 
-Start with the full lock. Remove every mod with `lite: false`. Then add back any mod that a kept mod requires. Run through resolve check against prior releases to ensure no duplicate uploads.
+The resolver derives the lite set from the full result. Remove every mod with lite: false. Then add back any mod that a kept mod requires. Lite has its own lock. If a change touches only mods outside the lite set, the lite lock stays the same and no lite build starts.
 
 ### Loader version
 
@@ -126,17 +127,18 @@ Format: `{mc}-{major}.{minor}`, for example `26.2-1.0`.
 
 ### Content hash
 
-Hash the sorted list of (path, sha512) for every file in the build, including overrides. Zip files are deterministic: sorted entries, fixed timestamps. A build joins the queue only when its content hash differs from the last upload.
+Hash the sorted list of (path, sha512) for every file in the build, including overrides. Zip files are deterministic: sorted entries, fixed timestamps. A build joins the queue only when its content hash differs from the last queued or uploaded hash for that edition and Minecraft version. When the hash is the same, write the lock and stop.
 
 ### Queue and publish
 
-1. The queue is first-in-first-out.
-2. In one run, queue newest Minecraft version first, full before lite.
-3. A new ready build replaces an older ready build for the same edition and Minecraft version, maintaining queue position.
-4. The daily publish step uploads the oldest ready item. It exits quietly if the last upload is newer than `min_days_between`.
-5. It checks the artifact checksum, then calls `POST /version`. The upload is a draft unless `auto_publish` is true.
-6. In draft mode it sends a note that a draft needs a click.
-7. Never create a change just to have something to upload.
+1. The queue is first-in-first-out by time added.
+2. Each edition and Minecraft version is its own item. The editions don’t wait for each other.
+3. A new ready build replaces an older ready build for the same edition and Minecraft version, and keeps its position.
+4. The queue holds at most 8 ready builds. A build that replaces a ready build always goes in. Any other build goes in only while fewer than 8 builds are ready. Failed builds don’t count.
+5. The daily publish step uploads the next item in the queue. It exits quietly if the last upload is newer than min_days_between.
+6. It checks the artifact checksum, then calls POST /version. The upload is a draft unless auto_publish is true.
+7. In draft mode it sends a note that a draft needs a click.
+8. Never create a change just to have something to upload.
 
 ### Outcomes per Minecraft version
 
@@ -145,6 +147,7 @@ Hash the sorted list of (path, sha512) for every file in the build, including ov
 - `NEEDS_DECISION`: a parent PR is open. Send one notification only. Builds continue from the accepted parent version.
 - `HELD`: completeness is below `alpha_at`, or a required mod is missing. Report why.
 - `FAILED`: send one notification per failure signature. Repeat after 7 days.
+- `DEFERRED`: a change exists and the queue is full. The tool doesn’t test it. The lock stays as it is. Nothing is queued. Nothing is sent.
 
 The run exits nonzero if any version failed, so `OnFailure=` fires as a backstop.
 
@@ -160,7 +163,7 @@ configs/
 assertions/
   extra.yaml
 assets/                       # icons
-lock/<mc>.json                # resolved mods per Minecraft version
+lock/<mc>_(full|lite).json    # last queued or uploaded mod files, per edition
 state/
   uploads.json  queue.json  parent/<mc>.json  runs/
 build/                        # git-ignored: builds, game dirs, logs, caches
@@ -264,9 +267,9 @@ rename_in_files: {} # S3: files that name the parent pack and need the new pack 
 
 GitHub access: the tool uses the `git` CLI to push the branch and the REST API only to open the PR.
 
-### Lock file (lock/\<mc>.json)
+### Lock file (lock/<mc>\_<edition>.json)
 
-Per mod: project ID, slug, version ID, version number, version type, file name, sha1, sha512, size, download URL, client and server side flags, dependency IDs, and source (`manifest`, `parent`, `dependency`, `companion`, `fallback`). Also: loader version, accepted parent version ID, and a note per mod that has no build.
+Per mod: project ID, slug, version ID, version number, version type, file name, sha1, sha512, size, download URL, client and server side flags, dependency IDs, and source (`manifest`, `parent`, `dependency`, `companion`, `fallback`). Also: loader version, accepted parent version ID.
 
 ### Configs
 
@@ -312,19 +315,19 @@ The launcher waits 15 to 30 seconds after the client is fully booted, then kills
 3. `mcversion.py`: parse and order versions from Mojang's manifest (cached). Range expressions. Lists new releases (type release only). Tests: 1.21.9 vs 1.21.10, and 26.2.
 4. `modrinth.py`: httpx client with a User-Agent that names the project and a contact, retries, ETag cache, bulk hash lookup, project versions, project metadata (title, license, side flags).
 5. `parent.py`: Section 9, Parent handling.
-6. `resolver.py`: picks builds (channel, pin, versions, exclude, fallback), adds required dependencies and companions, computes completeness, writes the lock. Derives the lite set.
+6. `resolver.py`: picks mod files (channel, pin, versions, exclude, fallback), adds required dependencies and companions, computes completeness, and derives the lite set. It writes to build/, never to lock/.
 7. `configs.py`: layers, `options.txt` merge, parent file cleanup. Later: patches, harvest, capture.
 8. `builder.py`: writes the .mrpack, computes the content hash, runs the static checks.
 9. `installer.py`: unpacks a .mrpack into a clean game directory. Installs servers as needed. Downloads with a cache keyed by hash. Verifies hashes.
 10. `launcher.py`: portablemc under xvfb-run, local vanilla server, a real-window mode for capture.
 11. `checks.py`: success and failure patterns, crash-report detection, assertions, two-boot comparison.
 12. `changelog.py`: text from the lock diff: parent version, mods added, removed, updated, config changes, mods with no build.
-13. `queue.py`, `publisher.py`: Section 7 rules and the Modrinth upload.
+13. `queue.py`, `publisher.py`: Section 7 rules, the slot limit, the lock write, and the Modrinth upload.
 14. `github.py`: `git` push and the REST call that opens or updates a PR.
 15. `notify.py`: ntfy, with the email header. Dedupe by failure signature.
 16. `state.py` (atomic writes), `runlog.py`, `lock.py` (flock so runs can't overlap).
 
-`init` is part of `cli.py` and `state.py`. It seeds `uploads.json` and `mc-versions.yaml` from both Modrinth projects. It takes the current parent version as the first accepted one, with no PR. It builds and tests both editions. It queues a build only when its content hash differs from the last upload. Uploads stay drafts.
+`init` is part of `cli.py` and `state.py`. It seeds `uploads.json` and `mc-versions.yaml` from both Modrinth projects. It takes the current parent version as the first accepted one, with no PR. It builds and tests both editions. It queues a build when its content hash differs from the last upload. It writes locks the same way the queue stage does.. Uploads stay drafts.
 
 Tests: `tests/fixtures` holds recorded Modrinth responses, made by a script. Unit tests cover every module. One slow test, marked `integration`, boots a vanilla Fabric instance with no pack.
 
@@ -332,10 +335,18 @@ Tests: `tests/fixtures` holds recorded Modrinth responses, made by a script. Uni
 
 ### check (weekly timer)
 
-1. Take the run lock. Run `git pull`.
+1. Take the run lock. Run git pull.
 2. Discover new Minecraft releases. Onboard those that meet the thresholds.
-3. Running across every active Minecraft version resolve, lock, build and test only while the queue holds fewer than 8 builds. Making sure to update the queue items if available.
-4. Write the run report.
+3. For each active Minecraft version, run parent, even when the queue is full.
+4. Order the versions: those with a ready build first, then the rest by newest MC version.
+5. For each version, run resolve into build/.
+6. For each edition whose result differs from its lock, make the build and compute its content hash.
+7. If the hash equals the last queued or uploaded hash, write the lock and go to the next edition.
+8. If the queue has no free slot, counting a slot for the same MC version and edition as empty, (Section 7, rule 4), report DEFERRED and go to the next edition. Or if no free slot and going to a version not in the queue, abort early to save duplicate work.
+9. Otherwise, run the three test tiers. If they pass, write the queue.json entry, then the lock. If a tier fails, report FAILED and leave the lock as it is.
+10. Isolate failures per version and per edition.
+11. Write the run report.
+12. commit and push to main
 
 ### publish (daily timer)
 
@@ -366,11 +377,11 @@ Phases are executed by the agent, user, or temporary scripts isolated from the f
 - **P1:** Boot harness on a small hand-made test pack (S7's .mrpack). Do this first. It's the riskiest part and where the last attempt stalled. Accept: the test boots the pack twice and passes. A broken config or a missing mod fails with a clear reason.
 - **P2:** Skeleton: `pyproject`, `models`, `mcversion`, `state`, `runlog`, `lock`, `cli`. Seed `mods.yaml`. Accept: ordering and schema tests pass.
 - **P3:** `modrinth.py` and `resolver.py` as a read-only report. Accept: for one Minecraft version, list every mod with its newest build, type, fallback used, missing mods, and completeness. No writes.
-- **P4:** Lock, builder, and static checks for both editions. Accept: both editions build for one Minecraft version. The mod set equals manifest plus parent, minus excluded, plus dependencies. The lite set holds the dependency closure.
+- **P4:** Builder and static checks for both editions. No lock writes. Accept: both editions build for one Minecraft version. The mod set equals manifest plus parent, minus excluded, plus dependencies. The lite set holds the dependency closure. A change to a full-only mod gives an unchanged lite result.
 - **P5:** Parent handling and PR. Accept: replay an old parent version, then a newer one. The PR lists adds and removals. Merging triggers a rebuild. A rejected PR doesn't reopen.
 - **P6:** Server and client tiers, assertions. Accept: seeded failures are caught.
 - **P7:** Config layers (whole files and `options.txt` merge). Accept: a changed `options.txt` key persists in a clean boot.
-- **P8:** Queue and publisher in draft mode. Accept: three drafts upload on cadence in queue order.
+- **P8:** Queue, lock writes, and publisher in draft mode. Accept: three drafts upload on cadence in queue order. A failed test leaves the lock unchanged. A full queue skips new versions and still replaces ready builds. A crash between the queue.json write and the lock write causes one rebuild with the same hash and no new item.
 - **P9:** Timers, alerts, heartbeat, and new-release discovery. Accept: break something on purpose and exactly one alert arrives. A fixture for a new Minecraft release onboards only when the thresholds are met.
 - **P10:** Patches, defaults harvest, capture. Accept: capture records a changed setting as a patch. The key persists in a clean boot. A mod's config format change fails loudly.
 - **P11:** portablemc update step. Then set `auto_publish` to true.
@@ -388,6 +399,7 @@ Phases are executed by the agent, user, or temporary scripts isolated from the f
 8. Minecraft 26.x versioning differs from 1.21.x. Don't assume a `1.x.y` format.
 9. The machine may be off when a timer fires.
 10. A draft counts as published for every tool rule (pack versions, content hash, queue).
+11. newest-first can content-starve older versions. This is acceptable to focus mostly on newer versions.
 
 ## 16. Non-goals
 
