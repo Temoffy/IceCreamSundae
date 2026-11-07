@@ -34,6 +34,7 @@ Each term has one meaning in this document.
 4. Design for unattended runs: fail loudly, need no memory from Telos, keep all state in the repo. Do the least that meets the plan, like a lazy senior dev: no extra modules, options, or abstractions, and ask before adding any.
 5. Never ask for secrets. Never commit them. The tool's name isn't final (first idea: mrpackVonNeumannifier): use packtool as a placeholder, and spell it only in names that one find-and-replace can change.
 6. write minimally, simply, and maintainably.
+7. use the 'pi --print "text"' command to delegate work when possible to preserve context.
 
 ## 4. Decisions
 
