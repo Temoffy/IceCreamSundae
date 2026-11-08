@@ -1,5 +1,5 @@
 """
-Game launcher.
+Game launcher for testing.
 """
 
 import subprocess
@@ -85,3 +85,52 @@ class GameLauncher:
         
         success = proc.returncode == 0
         return success, "".join(output), ""
+
+
+def wait_for_main_menu(
+    game_dir: str,
+    timeout: int = 60
+) -> tuple[bool, str]:
+    """
+    Wait for the game to reach main menu.
+    
+    Returns (success, log).
+    """
+    import glob
+    
+    log_dir = Path(game_dir) / "logs"
+    logs = list(log_dir.glob("*.log"))
+    
+    if not logs:
+        return False, "No logs found"
+    
+    latest_log = max(logs, key=lambda p: p.stat().st_mtime)
+    
+    with open(latest_log) as f:
+        log = f.read()
+    
+    success_patterns = ["Done (", "Server stopped", "Main menu"]
+    
+    for pattern in success_patterns:
+        if pattern in log:
+            return True, log
+    
+    return False, log
+
+
+def wait_for_player_join(
+    server_log: str,
+    timeout: int = 30
+) -> tuple[bool, str]:
+    """
+    Wait for a player to join the server.
+    
+    Returns (success, log).
+    """
+    patterns = ["Player joined", "Joined server"]
+    
+    for pattern in patterns:
+        if pattern in server_log:
+            return True, server_log
+    
+    return False, server_log
