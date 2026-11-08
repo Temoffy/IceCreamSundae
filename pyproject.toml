@@ -1,0 +1,33 @@
+[project]
+name = "packtool"
+version = "0.0.1"
+description = "Modpack automation tool for Fabric"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.27.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0.0",
+    "pytest>=8.0.0",
+    "portablemc>=5.0.0",
+    "urllib3>=2.0",
+]
+
+[project.scripts]
+packtool = "source.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["source"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["source"]

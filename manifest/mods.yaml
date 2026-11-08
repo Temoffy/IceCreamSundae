@@ -1,0 +1,23 @@
+# Mod configuration
+# See manifest/mods.yaml in AutomatedModpackTool.md for format
+
+- id: fabric-api
+  required: true
+- id: elytra-armor
+  name: Armored Elytra
+  fallback:
+    - id: metalwings
+      name: Metal Wings
+- id: simple-voice-chat
+  companions:
+    - id: talkingheads
+      name: Talking Heads
+      lite: false
+    - id: voicechat-soundboard
+      name: voicechat soundboard
+- id: faithful-32x
+  lite: false
+- id: iris
+  lite: false
+- id: capes
+  exclude: true

@@ -1,0 +1,11 @@
+[Unit]
+Description=Packtool Check Timer
+
+[Timer]
+OnBootSec=1h
+OnUnitActiveSec=7d
+Persistent=true
+Unit=packtool-check.service
+
+[Install]
+WantedBy=timers.target

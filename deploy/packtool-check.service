@@ -1,0 +1,13 @@
+[Unit]
+Description=Packtool Check
+After=network.target
+
+[Service]
+Type=oneshot
+User=agent
+WorkingDirectory=/home/agent/IceCreamSundae2
+ExecStart=/home/agent/IceCreamSundae2/.venv/bin/python source/cli.py --check
+Environment=MODRINTH_TOKEN=%E
+Environment=GITHUB_TOKEN=%GH
+Environment=NTFY_TOPIC=%NT
+EnvironmentFile=-/home/agent/IceCreamSundae2/.env

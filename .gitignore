@@ -1,10 +1,42 @@
+# Build artifacts
 *.jar
 *.exe
-source/packs/*
-source/litepacks/*
-source/parent/*
-.vscode/*
-.qodo/*
-.vs/*
-.venv/*
-.aider*
+*.class
+build/
+*.pyc
+__pycache__/
+.venv/
+
+# Generated files
+*.mrpack
+lock/
+state/
+manifest/mc-versions.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Lock files
+.gitattributes
+.gitignore

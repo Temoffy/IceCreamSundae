@@ -1,0 +1,25 @@
+{
+  "project_id": "icecream-sundae",
+  "versions": [
+    {
+      "version_id": "v1",
+      "version_number": "26.2-1.0",
+      "version_type": "release",
+      "date_published": "2024-01-15T10:00:00Z",
+      "status": "release",
+      "game_versions": ["26.2"],
+      "loaders": ["fabric"],
+      "files": []
+    },
+    {
+      "version_id": "v2",
+      "version_number": "26.1-1.0",
+      "version_type": "release",
+      "date_published": "2024-01-01T10:00:00Z",
+      "status": "release",
+      "game_versions": ["26.1"],
+      "loaders": ["fabric"],
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Parent pack configuration
+# See manifest/parent.yaml in AutomatedModpackTool.md for format
+
+project: fabulously-optimized
+remove_files: []
+rename_in_files: {}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Packtool Publish Timer
+
+[Timer]
+OnBootSec=1h
+OnUnitActiveSec=1d
+Persistent=true
+Unit=packtool-publish.service
+
+[Install]
+WantedBy=timers.target

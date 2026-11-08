@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "minecraft_version": "26.2",
+  "edition": "full",
+  "mods": [
+    {
+      "id": "fabric-loader",
+      "slug": "fabric-loader",
+      "version_id": "loader-0.20.1",
+      "version_number": "0.20.1",
+      "version_type": "release",
+      "file_name": "fabric-loader-0.20.1.jar",
+      "file_url": "file:///home/agent/IceCreamSundae2/build/test/libraries/net/fabricmc/fabric-loader/0.20.1/fabric-loader-0.20.1.jar",
+      "sha1": "abc123def456",
+      "sha512": "abc123def456789012345678901234567890123456789012345678901234567890",
+      "size": 12345,
+      "client": true,
+      "server": true,
+      "source": "parent"
+    },
+    {
+      "id": "minecraft",
+      "slug": "minecraft",
+      "version_id": "mc-26.2",
+      "version_number": "26.2",
+      "version_type": "release",
+      "file_name": "fabric-26.2-0.20.1.jar",
+      "file_url": "file:///home/agent/IceCreamSundae2/build/test/versions/fabric-26.2-0.20.1/fabric-26.2-0.20.1.jar",
+      "sha1": "def456abc789",
+      "sha512": "def456abc789012345678901234567890123456789012345678901234567890abc",
+      "size": 98765432,
+      "client": true,
+      "server": true,
+      "source": "parent"
+    }
+  ],
+  "loader_version": "0.20.1",
+  "parent_version": "v15.0.0-beta.3"
+}

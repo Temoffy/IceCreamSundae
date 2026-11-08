@@ -1,0 +1,27 @@
+# Modpack settings
+# See manifest/packs.yaml in AutomatedModpackTool.md for format
+
+settings:
+  loader: fabric
+  channel: release
+  version_format: "{mc}-{major}.{minor}"
+  completeness:
+    release_at: 95
+    beta_at: 70
+    alpha_at: 50
+  publish:
+    auto_publish: false
+    min_days_between: 1
+  notify:
+    ntfy_email: true
+
+packs:
+  full:
+    name: IceCreamSundae
+    modrinth_project_id: TODO
+    icon: assets/full.png
+  lite:
+    name: IceCreamMondae
+    name_template: "{name} {mc}"
+    modrinth_project_id: TODO
+    icon: assets/lite.png
