@@ -25,7 +25,7 @@ cp .env.example ~/.config/packtool/env
 nano ~/.config/packtool/env  # Fill in tokens
 
 # Run
-python run.py --help
+packtool --help
 ```
 
 ## Commands
