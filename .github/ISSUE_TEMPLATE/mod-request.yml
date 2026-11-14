@@ -1,9 +1,0 @@
-name: Mod request
-description: Suggest a new mod to be added or replaced in Fabulously Optimized
-labels: mod
-body:
-- type: markdown
-  attributes:
-    value: |
-      ## Mod name ⤴️
-      Before you request a mod, make sure it hasn't already been rejected and that we can distrobute it on Modrinth!'

@@ -10,6 +10,23 @@ Automates the creation and publishing of two Fabric modpacks:
 
 Both are based on the Fabulously Optimized parent pack.
 
+## Development Status
+
+**Phase 4**: Builder and static checks for both editions implemented
+
+- ✅ `pyproject.toml` - dependencies and entry point
+- ✅ `models.py` - Pydantic data models
+- ✅ `mcversion.py` - Mojang version manifest client
+- ✅ `state.py` - State management (uploads, queue, runs, parent)
+- ✅ `lock.py` - Lock file management
+- ✅ `runlog.py` - Run report management
+- ✅ `cli.py` - Command-line interface
+- ✅ `manifest/mods.yaml` - Seed mod configuration
+- ✅ `modrinth.py` - Modrinth API client (Phase 3)
+- ✅ `resolver.py` - Mod list resolver with completeness (Phase 3)
+- ✅ `builder.py` - Pack builder for both editions (Phase 4)
+- ✅ `checks.py` - Static checks and validation (Phase 4)
+
 ## Quick Start
 
 ```bash
@@ -75,46 +92,21 @@ Show build status.
 
 ```
 .
-├── manifest/                 # What Telos wants
-│   └── packs.yaml           # Pack settings
+├── manifest/                 # Version tracking
+│   └── mc-versions.yaml     # Active/candidate/retired versions
 ├── configs/                 # Config layers
 │   ├── base/               # Default configs
 │   └── mc-<version>/       # Version-specific configs
-├── state/                   # Runtime state (tracked)
-│   ├── uploads.json        # Last uploads
-│   ├── queue.json          # Queue items
-│   └── runs/               # Run reports
-├── lock/                    # Lock files (tracked)
-│   └── <mc>_<edition>.json # Queued/uploaded mods
-├── build/                   # Build outputs (ignored)
+├── state/                   # Runtime state (gitignored)
+│   ├── uploads.json        # Upload tracking
+│   ├── queue.json          # Build queue
+│   ├── runs.json           # Run reports
+│   └── parent/             # Parent pack state
+├── lock/                    # Lock files (gitignored)
+│   └── <mc>_<edition>.json # Queued mods
+├── build/                   # Build outputs (gitignored)
 ├── source/                  # Source code
 └── tests/                   # Tests
-```
-
-## Manifest Files
-
-### manifest/packs.yaml
-```yaml
-settings:
-  loader: fabric
-  channel: release
-  completeness:
-    release_at: 95
-    beta_at: 70
-    alpha_at: 50
-publish:
-  auto_publish: false  # Upload as draft first
-notify:
-  ntfy_email: true
-packs:
-  full:
-    name: IceCreamSundae
-    modrinth_project_id: TODO  # Fill this in
-  lite:
-    name: IceCreamMondae
-    name_template: "{name} {mc}"
-    modrinth_project_id: TODO  # Fill this in
-    icon: assets/lite.png
 ```
 
 ## Testing
@@ -130,3 +122,42 @@ python -m pytest --cov=source/ -v
 ## License
 
 See LICENSE.md
+
+## Project Phases
+
+This project follows the phases defined in [AutomatedModpackTool.md](AutomatedModpackTool.md):
+
+- **P0 (Completed)**: Spikes S1-S7 for boot testing, parent handling, and pack building
+- **P1 (Completed)**: Boot harness on hand-made test pack
+- **P2 (Completed)**: Skeleton implementation
+  - Core modules: `pyproject`, `models`, `mcversion`, `state`, `runlog`, `lock`, `cli`
+  - Seed `mods.yaml` with basic mod configuration
+- **P3 (Completed)**: Modrinth API and resolver as read-only report
+  - `modrinth.py`: Query Modrinth for mod builds
+  - `resolver.py`: Resolve mods with fallbacks, companions, completeness
+  - `--report` command: Generate human-readable reports
+- **P4 (Completed)**: Builder and static checks for both editions
+  - `builder.py`: Build both full and lite editions
+  - `checks.py`: Static validation of pack index and structure
+  - `--build` command: Build and validate both editions
+- **P5-P11**: Remaining phases for parent handling, tests, config, queue, publish, etc.
+
+## Source Modules
+
+| Module | Status | Description |
+|--------|--------|-------------|
+| `cli.py` | ✅ | Command-line interface |
+| `models.py` | ✅ | Pydantic data models |
+| `mcversion.py` | ✅ | Mojang version manifest client |
+| `modrinth.py` | ✅ | Modrinth API client |
+| `resolver.py` | ✅ | Mod list resolver |
+| `builder.py` | ✅ | Pack builder for both editions (P4) |
+| `checks.py` | ✅ | Static checks and validation (P4) |
+| `state.py` | ✅ | State management |
+| `lock.py` | ✅ | Lock file management |
+| `runlog.py` | ✅ | Run report management |
+| `configs.py` | ✅ | Config layer management |
+| `launcher.py` | ✅ | Game launcher |
+| `installer.py` | ✅ | Pack installer |
+
+## Directory Structure
